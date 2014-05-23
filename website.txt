@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+
+public partial class _Default : System.Web.UI.Page
+{
+    SqlDataReader sql;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    SqlConnection conn = new SqlConnection("Data Source='amit\\sqlexpress'; Initial Catalog='Amit';Integrated Security = 'True';");
+    protected void Button1_Click1(object sender, EventArgs e)
+    {
+       
+        conn.Open();
+        String str = "Select * from Table_2 where col1 ='" + TextBox1.Text + "' and col2 ='" + TextBox2.Text + "';";
+        SqlCommand query = new SqlCommand(str);
+        query.Connection = conn;
+        sql = query.ExecuteReader();
+
+        if (sql.HasRows)
+        {
+            Response.Write("Hello World!!");
+        }
+        else
+        {
+            Response.Write("Invalid ID or Password!!");
+        }
+        conn.Close();
+    }
+}
